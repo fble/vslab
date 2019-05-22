@@ -1,0 +1,13 @@
+server:
+	port: 8083
+spring:
+	instance:
+		leaseRenewalIntervalInSeconds: 10
+		statusPageUrlPath: /info
+		healthCheckUrlPath: /health
+			
+zuul:
+	ignoredServices: '*'
+	routes:
+		content-mgmt: /content-api/**
+		user-service: /user-api/**
