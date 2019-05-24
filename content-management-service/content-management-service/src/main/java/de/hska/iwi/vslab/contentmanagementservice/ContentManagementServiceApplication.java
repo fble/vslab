@@ -8,9 +8,6 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 
 @SpringBootApplication
-@EnableDiscoveryClient
-@EnableCircuitBreaker
-@EnableHystrixDashboard
 @RibbonClient("content-mgmt")
 public class ContentManagementServiceApplication {
 
