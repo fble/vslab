@@ -1,7 +1,8 @@
 package de.hska.iwi.vslab.userservice.manager.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import de.hska.iwi.vslab.userservice.db.dataAccessObjects.RoleDAO;
 import de.hska.iwi.vslab.userservice.db.dataAccessObjects.UserDAO;
@@ -9,62 +10,49 @@ import de.hska.iwi.vslab.userservice.db.dataobjects.Role;
 import de.hska.iwi.vslab.userservice.db.dataobjects.User;
 import de.hska.iwi.vslab.userservice.manager.UserManager;
 
-@Component
+@Service
+@Transactional
 public class UserManagerImpl implements UserManager {
-	
+
 	private final UserDAO userDAO;
-	
+	private final RoleDAO roleDAO;
+
 	@Autowired
-	public UserManagerImpl(final UserDAO userDAO) {
+	public UserManagerImpl(final UserDAO userDAO, final RoleDAO roleDAO) {
 		this.userDAO = userDAO;
+		this.roleDAO = roleDAO;
 	}
 
-	
+	@Override
 	public void registerUser(String username, String name, String lastname, String password, Role role) {
 		User user = new User(username, name, lastname, password, role);
 
-		userDAO.saveObject(user);
+		userDAO.registerUser(user);
 	}
 
-	
+	@Override
 	public User getUserByUsername(String username) {
-		if (username == null || username.equals("")) {
+		if (username == null || username.isEmpty())
 			return null;
-		}
+		
 		return userDAO.getUserByUsername(username);
 	}
 
-	public boolean deleteUserById(int id) {
-		User user = new User();
-		user.setId(id);
-		userDAO.deleteObject(user);
-		return true;
+	@Override
+	public void deleteUserById(int id) {
+		userDAO.deleteUserById(id);
 	}
 
+	@Override
 	public Role getRoleByLevel(int level) {
-		RoleDAO roleHelper = new RoleDAO();
-		return roleHelper.getRoleByLevel(level);
+		return roleDAO.getRoleByLevel(level);
 	}
 
+	@Override
 	public boolean doesUserAlreadyExist(String username) {
+		User dbUser = userDAO.getUserByUsername(username);
 		
-    	User dbUser = this.getUserByUsername(username);
-    	
-    	if (dbUser != null){
-    		return true;
-    	}
-    	else {
-    		return false;
-    	}
-	}
-	
-
-	public boolean validate(User user) {
-		if (user.getFirstname().isEmpty() || user.getPassword().isEmpty() || user.getRole() == null || user.getLastname() == null || user.getUsername() == null) {
-			return false;
-		}
-		
-		return true;
+		return dbUser != null;
 	}
 
 }

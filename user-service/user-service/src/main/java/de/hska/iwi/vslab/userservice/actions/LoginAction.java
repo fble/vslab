@@ -32,10 +32,13 @@ public class LoginAction {
 	}
 
 	private boolean isValid(final JSONUser jSONUser) {
-		if (jSONUser.getUsername().length() == 0)
+		String username = jSONUser.getUsername();
+		String password = jSONUser.getPassword();
+		
+		if (username == null || username.isEmpty())
 			return false;
 
-		if (jSONUser.getPassword().length() == 0)
+		if (password == null || password.isEmpty())
 			return false;
 
 		return true;

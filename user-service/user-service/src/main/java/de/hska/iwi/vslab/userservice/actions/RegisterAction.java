@@ -31,19 +31,19 @@ public class RegisterAction {
 	}
 
 	private boolean isValid(final JSONRegistration jSONRegistration) {
-		if (jSONRegistration.getFirstname().length() == 0)
+		if (jSONRegistration.getFirstname().isEmpty())
 			return false;
 
-		if (jSONRegistration.getLastname().length() == 0)
+		if (jSONRegistration.getLastname().isEmpty())
 			return false;
 
-		if (jSONRegistration.getUsername().length() == 0)
+		if (jSONRegistration.getUsername().isEmpty())
 			return false;
 
-		if (jSONRegistration.getPassword1().length() == 0)
+		if (jSONRegistration.getPassword1().isEmpty())
 			return false;
 
-		if (jSONRegistration.getPassword2().length() == 0)
+		if (jSONRegistration.getPassword2().isEmpty())
 			return false;
 
 		if (!jSONRegistration.getPassword1().equals(jSONRegistration.getPassword2()))
