@@ -4,30 +4,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import de.hska.iwi.vslab.userservice.controller.json.JSONRegistration;
+import de.hska.iwi.vslab.userservice.db.RoleRepo;
+import de.hska.iwi.vslab.userservice.db.UserRepo;
 import de.hska.iwi.vslab.userservice.db.dataobjects.Role;
-import de.hska.iwi.vslab.userservice.manager.UserManager;
+import de.hska.iwi.vslab.userservice.db.dataobjects.User;
 
 @Component
 public class RegisterAction {
 
-	private final UserManager userManager;
+	private final UserRepo userRepo;
+	private final RoleRepo roleRepo;
 
 	@Autowired
-	public RegisterAction(final UserManager userManager) {
-		this.userManager = userManager;
+	public RegisterAction(final UserRepo userRepo, final RoleRepo roleRepo) {
+		this.userRepo = userRepo;
+		this.roleRepo = roleRepo;
 	}
 
 	public void register(final JSONRegistration jSONRegistration) throws Exception {
-		Role role = userManager.getRoleByLevel(1); // 1 -> regular User, 2 -> Admin
+		Role role = roleRepo.getRoleByLevel(1); // 1 -> regular User, 2 -> Admin
 
-		if (userManager.doesUserAlreadyExist(jSONRegistration.getUsername()))
+		if (userRepo.existsByUsername(jSONRegistration.getUsername()))
 			throw new IllegalStateException("User already exists!");
 
 		if (!isValid(jSONRegistration))
 			throw new IllegalArgumentException("Invalid user!");
 
-		userManager.registerUser(jSONRegistration.getUsername(), jSONRegistration.getFirstname(),
+		User user = new User(jSONRegistration.getUsername(), jSONRegistration.getFirstname(),
 				jSONRegistration.getLastname(), jSONRegistration.getPassword1(), role);
+		userRepo.save(user);
 	}
 
 	private boolean isValid(final JSONRegistration jSONRegistration) {

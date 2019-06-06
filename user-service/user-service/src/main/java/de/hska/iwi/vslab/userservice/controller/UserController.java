@@ -3,8 +3,8 @@ package de.hska.iwi.vslab.userservice.controller;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,7 +30,7 @@ public class UserController {
 	}
 
 	@PostMapping
-	public Response create(final JSONRegistration jSONRegistration) {
+	public Response create(@RequestBody final JSONRegistration jSONRegistration) {
 		try {
 			registerAction.register(jSONRegistration);
 		} catch (Exception e) {
@@ -40,8 +40,8 @@ public class UserController {
 		return Response.ok().build();
 	}
 	
-	@GetMapping("login")
-	public Response login(final JSONUser jSONUser) {
+	@PostMapping("login")
+	public Response login(@RequestBody final JSONUser jSONUser) {
 		try {
 			loginAction.login(jSONUser);
 		} catch (Exception e) {
@@ -51,8 +51,8 @@ public class UserController {
 		return Response.ok().build();
 	}
 	
-	@GetMapping("logout")
-	public Response logout(final JSONUser jSONUser) {
+	@PostMapping("logout")
+	public Response logout(@RequestBody final JSONUser jSONUser) {
 		try {
 			logoutAction.logout();
 		} catch (Exception e) {
