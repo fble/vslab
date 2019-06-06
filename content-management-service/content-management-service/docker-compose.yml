@@ -1,0 +1,14 @@
+version: '3.2'
+services:
+  content-mgmt-service:
+    image: content-mgmt-service
+    ports:
+      - "8888:8080"
+    networks:
+      local_dev_net:
+          aliases:
+              - content-mgmt-service
+
+networks:
+  local_dev_net:
+    driver: bridge
