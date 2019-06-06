@@ -1,14 +1,9 @@
-version: '3.2'
+version: '2.0'
 services:
-  content-mgmt-service:
-    image: content-mgmt-service
+  cms:
+    image: cms
+    build:
+      context: ./
+      dockerfile: Dockerfile
     ports:
-      - "8888:8080"
-    networks:
-      local_dev_net:
-          aliases:
-              - content-mgmt-service
-
-networks:
-  local_dev_net:
-    driver: bridge
+      - "8080:8088"

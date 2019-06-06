@@ -11,7 +11,7 @@
 	<groupId>de.hska.iwi.vslab</groupId>
 	<artifactId>content-management-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>content-management-service</name>
 	<description>Demo project for Spring Boot</description>
 
