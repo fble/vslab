@@ -2,7 +2,15 @@ server:
     port: 8088
 spring:
     application:
-        name: content-mgmt
+        name: user-service
+    jpa:
+        hibernate:
+            ddl-auto: update
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://user-db-service:3306/userdb
+        username: dbuser 
+        password: dbpass
 eureka:
     client:
         enabled: false
