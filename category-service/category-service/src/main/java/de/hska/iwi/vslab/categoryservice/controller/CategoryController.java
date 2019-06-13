@@ -26,8 +26,11 @@ public class CategoryController {
 	private CategoryRepo repo;
 	
 	@PostMapping
-	public ResponseEntity<?> create(@RequestBody String name) {
+	public ResponseEntity<?> create(@RequestBody String name) throws Exception {
 		// Create Category
+		if (name.length() == 0) {
+			throw new IllegalArgumentException("Category must be given a name!");
+		}
 		repo.save(new Category(name));
 		return new ResponseEntity<>(null, HttpStatus.CREATED);
 	}

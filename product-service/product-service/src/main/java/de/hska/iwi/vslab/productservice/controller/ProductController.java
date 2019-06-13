@@ -25,8 +25,25 @@ public class ProductController {
 	private ProductRepo repo;
 	
 	@PostMapping
-	public ResponseEntity<?> create(@RequestBody Product product) {
-		// Create Category
+	public ResponseEntity<?> create(@RequestBody Product product) throws Exception {
+		// Create Product
+		// Validate name:
+		
+				if (product.getName() == null || product.getName().length() == 0) {
+					throw new IllegalArgumentException("Product must have a name!");
+				}
+		
+				// Validate price:
+		
+				if (String.valueOf(product.getPrice()).length() > 0) {
+					if (!String.valueOf(product.getPrice()).matches("[0-9]+(.[0-9][0-9]?)?")
+							|| product.getPrice() < 0.0) {
+						throw new IllegalArgumentException("Price is not valid!");
+					}
+				} else {
+					throw new IllegalArgumentException("Product must have price!");
+				}
+
 		repo.save(product);
 		return new ResponseEntity<>(null, HttpStatus.CREATED);
 	}

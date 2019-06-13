@@ -1,9 +1,5 @@
 package de.hska.iwi.vslab.categoryservice.actions;
 
-import java.util.List;
-
-import de.hska.iwi.vslab.categoryservice.dataobjects.Category;
-
 
 public class DeleteCategoryAction {
 
@@ -13,7 +9,7 @@ public class DeleteCategoryAction {
 	private static final long serialVersionUID = 1254575994729199914L;
 	
 	private int catId;
-	private List<Category> categories;
+//	private List<Category> categories;
 
 	public String execute() throws Exception {
 		
@@ -47,11 +43,11 @@ public class DeleteCategoryAction {
 		this.catId = catId;
 	}
 
-	public List<Category> getCategories() {
-		return categories;
-	}
-
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
-	}
+//	public List<Category> getCategories() {
+//		return categories;
+//	}
+//
+//	public void setCategories(List<Category> categories) {
+//		this.categories = categories;
+//	}
 }

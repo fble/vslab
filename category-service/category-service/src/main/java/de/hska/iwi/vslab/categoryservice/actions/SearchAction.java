@@ -2,10 +2,6 @@ package de.hska.iwi.vslab.categoryservice.actions;
 
 import java.util.List;
 
-import de.hska.iwi.vslab.categoryservice.dataobjects.Category;
-import de.hska.iwi.vslab.categoryservice.dataobjects.Product;
-import de.hska.iwi.vslab.categoryservice.dataobjects.User;
-
 
 public class SearchAction {
 
@@ -22,9 +18,9 @@ public class SearchAction {
 //	private Double sMinPrice = null;
 //	private Double sMaxPrice = null;
 	
-	private User user;
-	private List<Product> products;
-	private List<Category> categories;
+//	private User user;
+//	private List<Product> products;
+//	private List<Category> categories;
 	
 
 	public String execute() throws Exception {
@@ -58,30 +54,30 @@ public class SearchAction {
 	}
 			
 		
-		public User getUser() {
-			return user;
-		}
-
-		public void setUser(User user) {
-			this.user = user;
-		}
-		
-		public List<Product> getProducts() {
-			return products;
-		}
-
-		public void setProducts(List<Product> products) {
-			this.products = products;
-		}
-		
-		public List<Category> getCategories() {
-			return categories;
-		}
-
-		public void setCategories(List<Category> categories) {
-			this.categories = categories;
-		}
-		
+//		public User getUser() {
+//			return user;
+//		}
+//
+//		public void setUser(User user) {
+//			this.user = user;
+//		}
+//		
+//		public List<Product> getProducts() {
+//			return products;
+//		}
+//
+//		public void setProducts(List<Product> products) {
+//			this.products = products;
+//		}
+//		
+//		public List<Category> getCategories() {
+//			return categories;
+//		}
+//
+//		public void setCategories(List<Category> categories) {
+//			this.categories = categories;
+//		}
+//		
 		
 
 

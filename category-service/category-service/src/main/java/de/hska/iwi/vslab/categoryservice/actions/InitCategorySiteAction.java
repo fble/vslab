@@ -1,13 +1,5 @@
 package de.hska.iwi.vslab.categoryservice.actions;
 
-
-import java.util.List;
-import java.util.Map;
-
-import de.hska.iwi.vslab.categoryservice.dataobjects.Category;
-import de.hska.iwi.vslab.categoryservice.dataobjects.User;
-
-
 public class InitCategorySiteAction {
 
 	/**
@@ -16,9 +8,9 @@ public class InitCategorySiteAction {
 	private static final long serialVersionUID = -1108136421569378914L;
 
 	private String pageToGoTo;
-	private User user;
+//	private User user;
 
-	private List<Category> categories;
+//	private List<Category> categories;
 
 	public String execute() throws Exception {
 		
@@ -45,13 +37,13 @@ public class InitCategorySiteAction {
 		return res;
 	}
 
-	public List<Category> getCategories() {
-		return categories;
-	}
-
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
-	}
+//	public List<Category> getCategories() {
+//		return categories;
+//	}
+//
+//	public void setCategories(List<Category> categories) {
+//		this.categories = categories;
+//	}
 
 	public String getPageToGoTo() {
 		return pageToGoTo;
@@ -61,12 +53,12 @@ public class InitCategorySiteAction {
 		this.pageToGoTo = pageToGoTo;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 
 }

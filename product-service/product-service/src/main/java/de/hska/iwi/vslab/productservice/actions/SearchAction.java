@@ -2,9 +2,7 @@ package de.hska.iwi.vslab.productservice.actions;
 
 import java.util.List;
 
-import de.hska.iwi.vslab.productservice.dataobject.Category;
 import de.hska.iwi.vslab.productservice.dataobject.Product;
-import de.hska.iwi.vslab.productservice.dataobject.User;
 
 public class SearchAction {
 
@@ -21,9 +19,9 @@ public class SearchAction {
 //	private Double sMinPrice = null;
 //	private Double sMaxPrice = null;
 	
-	private User user;
+//	private User user;
 	private List<Product> products;
-	private List<Category> categories;
+//	private List<Category> categories;
 	
 
 	public String execute() throws Exception {
@@ -57,13 +55,13 @@ public class SearchAction {
 	}
 			
 		
-		public User getUser() {
-			return user;
-		}
-
-		public void setUser(User user) {
-			this.user = user;
-		}
+//		public User getUser() {
+//			return user;
+//		}
+//
+//		public void setUser(User user) {
+//			this.user = user;
+//		}
 		
 		public List<Product> getProducts() {
 			return products;
@@ -73,14 +71,14 @@ public class SearchAction {
 			this.products = products;
 		}
 		
-		public List<Category> getCategories() {
-			return categories;
-		}
-
-		public void setCategories(List<Category> categories) {
-			this.categories = categories;
-		}
-		
+//		public List<Category> getCategories() {
+//			return categories;
+//		}
+//
+//		public void setCategories(List<Category> categories) {
+//			this.categories = categories;
+//		}
+//		
 		
 
 
