@@ -1,4 +1,4 @@
-package de.hska.iwi.vslab.contentmanagementservice;
+package de.hska.vslab.api;
 
 public class Product {
 

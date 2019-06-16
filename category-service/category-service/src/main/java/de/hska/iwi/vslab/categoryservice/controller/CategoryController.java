@@ -19,7 +19,7 @@ import de.hska.iwi.vslab.categoryservice.dao.CategoryRepo;
 
 
 @RestController
-@RequestMapping(value = "categorys/")
+@RequestMapping(value = "categories/")
 public class CategoryController {
 
 	@Autowired
@@ -36,10 +36,10 @@ public class CategoryController {
 	}
 
 	@GetMapping
-	public ResponseEntity<Iterable<Category>> getCategories() {
+	public ResponseEntity<Category[]> getCategories() {
 		
 		Iterable<Category> allCategories = repo.findAll();
-		return new ResponseEntity<>(allCategories, HttpStatus.OK);
+		return new ResponseEntity(allCategories, HttpStatus.OK);
 	
 	}
 
