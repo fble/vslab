@@ -19,6 +19,9 @@ public class RegisterAction {
 	public RegisterAction(final UserRepo userRepo, final RoleRepo roleRepo) {
 		this.userRepo = userRepo;
 		this.roleRepo = roleRepo;
+		
+		roleRepo.save(new Role("admin", 0));
+		roleRepo.save(new Role("user", 1));
 	}
 
 	public void register(final JSONRegistration jSONRegistration) throws Exception {

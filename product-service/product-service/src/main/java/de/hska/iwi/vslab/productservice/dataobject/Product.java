@@ -27,8 +27,8 @@ public class Product implements java.io.Serializable {
 	private double price;
 
 	
-	@ManyToOne
-	@JoinColumn(name = "category_id")
+	//@ManyToOne
+	@Column(name = "category_id")
 	private int categoryId;
 
 	@Column(name = "details")

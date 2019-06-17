@@ -1,24 +1,24 @@
 version: '3.7'
 services:
-  users:
-    image: users
+  products:
+    image: products
     ports:
-      - 8080:8088
+      - 8082:8088
     depends_on:
-      - user-db-service
+      - product-db-service
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://user-db-service:3306/userdb?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_URL=jdbc:mysql://product-db-service:3306/productdb?useSSL=false&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=dbuser
       - SPRING_DATASOURCE_PASSWORD=dbpass
-  user-db-service:
+  product-db-service:
     image: mysql:latest
     ports: 
-      - "8081:3306"
+      - "8083:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_USER=dbuser
       - MYSQL_PASSWORD=dbpass
-      - MYSQL_DATABASE=userdb
+      - MYSQL_DATABASE=productdb
       - MYSQL_ONETIME_PASSWORD=true
     volumes:
       - ./data/:/var/lib/mysql
