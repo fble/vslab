@@ -1,13 +1,12 @@
-package de.hska.vslab.api;
+package de.hska.vslab;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 public class ContentClient {
     private String categoryUri = "";
-
-
-
+    private String productUri = "";
+    private String userUri = "";
 
     public boolean createCategory(Category c) {
 
@@ -39,12 +38,8 @@ public class ContentClient {
         RestTemplate rt = new RestTemplate();
         rt.delete(categoryUri+"/"+id);
 
-
-
         return true;
     }
-
-    private String productUri = "";
 
     public boolean createProduct(Product p) {
         RestTemplate rt = new RestTemplate();
@@ -75,8 +70,6 @@ public class ContentClient {
         RestTemplate rt = new RestTemplate();
         rt.delete(productUri+"/"+id);
 
-
-
         return true;
     }
 
@@ -84,6 +77,22 @@ public class ContentClient {
         return null;
     }
 
+    public User createUser(Registration r) {
+    	 RestTemplate rt = new RestTemplate();
+         rt.postForEntity(userUri, r, Registration.class );
 
+         return null;
+    }
+    
+    public User loginUser(User u) {
+		return u;
+    	
+    }
+    
+    public User logoutUser(User u) {
+   	 RestTemplate rt = new RestTemplate();
+        rt.postForEntity(userUri+"/logout", u, User.class );
 
+        return null;
+   }
 }

@@ -1,4 +1,4 @@
-package de.hska.vslab.api;
+package de.hska.vslab;
 
 public class Category {
 	private int id;

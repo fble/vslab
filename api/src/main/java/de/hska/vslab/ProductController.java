@@ -1,4 +1,4 @@
-package de.hska.vslab.api;
+package de.hska.vslab;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
