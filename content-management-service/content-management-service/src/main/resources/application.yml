@@ -5,7 +5,6 @@ spring:
         name: content-mgmt
 eureka:
     client:
-        enabled: false
         serverUrl:
             defaultZone: http://localhost:8761/eureka/
     instance:

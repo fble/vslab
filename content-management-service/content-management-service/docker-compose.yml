@@ -1,9 +1,6 @@
-version: '2.0'
+version: '3.7'
 services:
   cms:
     image: cms
-    build:
-      context: ./
-      dockerfile: Dockerfile
     ports:
-      - "8080:8088"
+      - 8087:8088

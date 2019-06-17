@@ -13,7 +13,7 @@ import de.hska.iwi.vslab.contentmanagementservice.clients.CategoryClient;
 import de.hska.iwi.vslab.contentmanagementservice.clients.ProductClient;
 
 @RestController
-@RequestMapping(value="/categories")
+@RequestMapping(value="/categories/")
 public class CategoryController {
 
 	private CategoryClient categoryClient = new CategoryClient(); 

@@ -13,7 +13,7 @@ import de.hska.vslab.dataobjects.Registration;
 import de.hska.vslab.dataobjects.User;
 
 @RestController
-@RequestMapping(value = "users/")
+@RequestMapping(value = "/users/")
 public class UserController {
 
 	private final ContentClient client;

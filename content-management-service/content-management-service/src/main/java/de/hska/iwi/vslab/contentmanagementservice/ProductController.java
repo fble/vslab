@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import de.hska.iwi.vslab.contentmanagementservice.clients.ProductClient;
 
 @RestController
-@RequestMapping(value="/products")
+@RequestMapping(value="/products/")
 public class ProductController {
 
 	private ProductClient productClient = new ProductClient();

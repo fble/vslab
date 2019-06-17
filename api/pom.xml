@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>de.hska.vslab</groupId>
-	<artifactId>api</artifactId>
+	<artifactId>api-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>api</name>
+	<name>api-service</name>
 	<description>API Service </description>
 
 

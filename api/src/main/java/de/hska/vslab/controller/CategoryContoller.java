@@ -15,7 +15,7 @@ import de.hska.vslab.ContentClient;
 import de.hska.vslab.dataobjects.Category;
 
 @RestController
-@RequestMapping(value = "/categories")
+@RequestMapping(value = "/categories/")
 public class CategoryContoller {
 	
 	private final ContentClient client;

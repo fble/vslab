@@ -1,13 +1,29 @@
 server:
-	port: 8083
-spring:
-	instance:
-		leaseRenewalIntervalInSeconds: 10
-		statusPageUrlPath: /info
-		healthCheckUrlPath: /health
-			
+  port: 8088
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    statusPageUrlPath: /info
+    healthCheckUrlPath: /health
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - "*"
+
 zuul:
-	ignoredServices: '*'
-	routes:
-		content-mgmt: /content-api/**
-		user-service: /user-api/**
+  ignored-services:
+  - '*'
+  prefix: /webshop
+  routes:
+    user-service:
+      path: /users/**
+      service-id: user-service
+      strip-prefix: false
+    content-mgmt:
+      path: /**
+      service-id: content-mgmt
+      strip-prefix: true

@@ -15,7 +15,7 @@ import de.hska.vslab.ContentClient;
 import de.hska.vslab.dataobjects.Product;
 
 @RestController
-@RequestMapping(value = "/products")
+@RequestMapping(value = "/products/")
 public class ProductController {
 
 	private final ContentClient client;

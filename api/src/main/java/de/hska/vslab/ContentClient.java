@@ -1,6 +1,7 @@
 package de.hska.vslab;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import de.hska.vslab.dataobjects.Category;
@@ -8,10 +9,11 @@ import de.hska.vslab.dataobjects.Product;
 import de.hska.vslab.dataobjects.Registration;
 import de.hska.vslab.dataobjects.User;
 
+@Component
 public class ContentClient {
-	private String categoryUri = "";
-	private String productUri = "";
-	private String userUri = "";
+	private String categoryUri = "http://content-mgmt/categories/";
+	private String productUri = "http://content-mgmt/products/";
+	private String userUri = "http://user-service/users/";
 
 	public boolean createCategory(final String name) {
 
@@ -31,7 +33,7 @@ public class ContentClient {
 
 	public Category getCategoryById(int id) {
 		RestTemplate rt = new RestTemplate();
-		ResponseEntity<Category> entity = rt.getForEntity(categoryUri + "/" + id, Category.class);
+		ResponseEntity<Category> entity = rt.getForEntity(categoryUri + id, Category.class);
 
 		return entity.getBody();
 	}
@@ -39,7 +41,7 @@ public class ContentClient {
 	public boolean deleteCategory(int id) {
 
 		RestTemplate rt = new RestTemplate();
-		rt.delete(categoryUri + "/" + id);
+		rt.delete(categoryUri + id);
 
 		return true;
 	}
@@ -64,14 +66,14 @@ public class ContentClient {
 
 	public Product getProductById(int id) {
 		RestTemplate rt = new RestTemplate();
-		ResponseEntity<Product> entity = rt.getForEntity(productUri + "/" + id, Product.class);
+		ResponseEntity<Product> entity = rt.getForEntity(productUri + id, Product.class);
 
 		return entity.getBody();
 	}
 
 	public boolean deleteProduct(int id) {
 		RestTemplate rt = new RestTemplate();
-		rt.delete(productUri + "/" + id);
+		rt.delete(productUri + id);
 
 		return true;
 	}
@@ -88,13 +90,15 @@ public class ContentClient {
 	}
 
 	public User loginUser(User u) {
-		return u;
+		RestTemplate rt = new RestTemplate();
+		rt.postForEntity(userUri + "login", u, User.class);
 
+		return null;
 	}
 
 	public User logoutUser(User u) {
 		RestTemplate rt = new RestTemplate();
-		rt.postForEntity(userUri + "/logout", u, User.class);
+		rt.postForEntity(userUri + "logout", u, User.class);
 
 		return null;
 	}

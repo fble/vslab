@@ -1,0 +1,105 @@
+version: '3.7'
+
+services:
+
+
+  db-service:
+    image: mysql:latest
+    ports: 
+      - "8080:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=dbuser
+      - MYSQL_PASSWORD=dbpass
+      - MYSQL_DATABASE=eshop
+      - MYSQL_ONETIME_PASSWORD=true
+    volumes:
+      - ./data/:/var/lib/mysql
+
+
+  api:
+    image: api
+    ports:
+      - 8081:8088
+    depends_on:
+      - eureka
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+    
+    
+  categories:
+    image: categories
+    ports:
+      - 8082:8088
+    build:
+      context: ./category-service/category-service
+      dockerfile: ./Dockerfile
+    depends_on:
+      - db-service
+      - eureka
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/eshop?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=dbuser
+      - SPRING_DATASOURCE_PASSWORD=dbpass
+    
+    
+  cms:
+    image: cms
+    ports:
+      - 8083:8088
+    depends_on:
+      - eureka
+    build:
+      context: ./content-management-service/content-management-service
+      dockerfile: ./Dockerfile
+    
+    
+  products:
+    image: products
+    ports:
+      - 8084:8088
+    build:
+      context: ./product-service/product-service
+      dockerfile: ./Dockerfile
+    depends_on:
+      - db-service
+      - eureka
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/eshop?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=dbuser
+      - SPRING_DATASOURCE_PASSWORD=dbpass
+    
+
+  users:
+    image: users
+    ports:
+      - 8085:8088
+    build:
+      context: ./user-service/user-service
+      dockerfile: ./Dockerfile
+    depends_on:
+      - db-service
+      - eureka
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/eshop?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=dbuser
+      - SPRING_DATASOURCE_PASSWORD=dbpass
+    
+   
+  eureka:
+    image: eureka
+    build:
+      context: ./eureka-server/eureka-server
+      dockerfile: ./Dockerfile
+    ports:
+      - 8761:8761
+
+
+  zuul:
+    image: zuul
+    build:
+      context: ./zuul-server/zuul-server
+      dockerfile: ./Dockerfile
+    ports:
+      - 8086:8088
