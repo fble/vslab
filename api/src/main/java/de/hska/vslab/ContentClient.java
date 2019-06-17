@@ -3,6 +3,11 @@ package de.hska.vslab;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import de.hska.vslab.dataobjects.Category;
+import de.hska.vslab.dataobjects.Product;
+import de.hska.vslab.dataobjects.Registration;
+import de.hska.vslab.dataobjects.User;
+
 public class ContentClient {
 	private String categoryUri = "";
 	private String productUri = "";

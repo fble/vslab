@@ -1,4 +1,4 @@
-package de.hska.vslab;
+package de.hska.vslab.dataobjects;
 
 public class Product {
 

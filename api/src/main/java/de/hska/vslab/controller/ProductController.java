@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.hska.vslab.ContentClient;
-import de.hska.vslab.Product;
+import de.hska.vslab.dataobjects.Product;
 
 @RestController
 @RequestMapping(value = "/products")

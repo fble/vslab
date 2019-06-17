@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import de.hska.vslab.Category;
 import de.hska.vslab.ContentClient;
+import de.hska.vslab.dataobjects.Category;
 
+@RestController
+@RequestMapping(value = "/categories")
 public class CategoryContoller {
 	
 	private final ContentClient client;
