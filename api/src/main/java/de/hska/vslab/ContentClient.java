@@ -4,95 +4,93 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 public class ContentClient {
-    private String categoryUri = "";
-    private String productUri = "";
-    private String userUri = "";
+	private String categoryUri = "";
+	private String productUri = "";
+	private String userUri = "";
 
-    public boolean createCategory(Category c) {
+	public boolean createCategory(final String name) {
 
-        RestTemplate rt = new RestTemplate();
-        rt.postForEntity(categoryUri, c, Category.class );
+		RestTemplate rt = new RestTemplate();
+		rt.postForEntity(categoryUri, name, String.class);
 
-        return true;
-    }
+		return true;
+	}
 
-    public Category[] getCategories() {
+	public Category[] getCategories() {
 
-        RestTemplate rt = new RestTemplate();
-        ResponseEntity<Category[]> entity = rt.getForEntity(categoryUri, Category[].class);
+		RestTemplate rt = new RestTemplate();
+		ResponseEntity<Category[]> entity = rt.getForEntity(categoryUri, Category[].class);
 
-        return entity.getBody();
-    }
+		return entity.getBody();
+	}
 
+	public Category getCategoryById(int id) {
+		RestTemplate rt = new RestTemplate();
+		ResponseEntity<Category> entity = rt.getForEntity(categoryUri + "/" + id, Category.class);
 
-    public Category getCategoryById(int id) {
-        RestTemplate rt = new RestTemplate();
-        ResponseEntity<Category> entity = rt.getForEntity(categoryUri+"/"+id, Category.class);
+		return entity.getBody();
+	}
 
-        return entity.getBody();
-    }
+	public boolean deleteCategory(int id) {
 
+		RestTemplate rt = new RestTemplate();
+		rt.delete(categoryUri + "/" + id);
 
-    public boolean deleteCategory(int id) {
+		return true;
+	}
 
-        RestTemplate rt = new RestTemplate();
-        rt.delete(categoryUri+"/"+id);
+	public boolean createProduct(Product p) {
+		RestTemplate rt = new RestTemplate();
+		rt.postForEntity(productUri, p, Product.class);
 
-        return true;
-    }
+		return true;
+	}
 
-    public boolean createProduct(Product p) {
-        RestTemplate rt = new RestTemplate();
-        rt.postForEntity(productUri, p, Product.class );
+	public Product[] getProducts() {
+		RestTemplate rt = new RestTemplate();
+		ResponseEntity<Product[]> entity = rt.getForEntity(productUri, Product[].class);
 
-        return true;
-    }
+		return entity.getBody();
+	}
 
-    public Product[] getProducts() {
-        RestTemplate rt = new RestTemplate();
-        ResponseEntity<Product[]> entity = rt.getForEntity(productUri, Product[].class);
+	public Product[] getProductsByCategoryId(int catId) {
+		return null;
+	}
 
-        return entity.getBody();
-    }
+	public Product getProductById(int id) {
+		RestTemplate rt = new RestTemplate();
+		ResponseEntity<Product> entity = rt.getForEntity(productUri + "/" + id, Product.class);
 
-    public Product[] getProductsByCategoryId(int catId) {
-        return null;
-    }
+		return entity.getBody();
+	}
 
-    public Product getProductById(int id) {
-        RestTemplate rt = new RestTemplate();
-        ResponseEntity<Product> entity = rt.getForEntity(productUri+"/"+id, Product.class);
+	public boolean deleteProduct(int id) {
+		RestTemplate rt = new RestTemplate();
+		rt.delete(productUri + "/" + id);
 
-        return entity.getBody();
-    }
+		return true;
+	}
 
-    public boolean deleteProduct(int id) {
-        RestTemplate rt = new RestTemplate();
-        rt.delete(productUri+"/"+id);
+	public Product[] searchProduct(String searchText) {
+		return null;
+	}
 
-        return true;
-    }
+	public User createUser(Registration r) {
+		RestTemplate rt = new RestTemplate();
+		rt.postForEntity(userUri, r, Registration.class);
 
-    public Product[] searchProduct(String searchText) {
-        return null;
-    }
+		return null;
+	}
 
-    public User createUser(Registration r) {
-    	 RestTemplate rt = new RestTemplate();
-         rt.postForEntity(userUri, r, Registration.class );
-
-         return null;
-    }
-    
-    public User loginUser(User u) {
+	public User loginUser(User u) {
 		return u;
-    	
-    }
-    
-    public User logoutUser(User u) {
-   	 RestTemplate rt = new RestTemplate();
-        rt.postForEntity(userUri+"/logout", u, User.class );
 
-        return null;
-   }
+	}
+
+	public User logoutUser(User u) {
+		RestTemplate rt = new RestTemplate();
+		rt.postForEntity(userUri + "/logout", u, User.class);
+
+		return null;
+	}
 }
