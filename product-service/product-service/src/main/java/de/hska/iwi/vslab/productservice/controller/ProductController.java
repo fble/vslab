@@ -1,7 +1,6 @@
 package de.hska.iwi.vslab.productservice.controller;
 
 import javax.persistence.EntityNotFoundException;
-import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.hska.iwi.vslab.productservice.dao.Product;
 import de.hska.iwi.vslab.productservice.dao.ProductRepo;
+import de.hska.iwi.vslab.productservice.dataobject.Product;
 
 @RestController
 @RequestMapping(value = "products/")
