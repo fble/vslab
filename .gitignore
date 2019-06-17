@@ -1,3 +1,4 @@
 user-service/user-service/data/*
 product-service/product-service/data/*
+category-service/category-service/data/*
 .idea/
