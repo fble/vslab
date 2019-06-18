@@ -1,8 +1,9 @@
 package de.hska.iwi.vslab.contentmanagementservice.clients;
 
-import de.hska.iwi.vslab.contentmanagementservice.Category;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+
+import de.hska.iwi.vslab.contentmanagementservice.Category;
 
 public class CategoryClient {
 

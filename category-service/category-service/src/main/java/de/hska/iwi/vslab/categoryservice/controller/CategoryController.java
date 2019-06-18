@@ -19,7 +19,7 @@ import de.hska.iwi.vslab.categoryservice.dao.CategoryRepo;
 
 
 @RestController
-@RequestMapping(value = "categories/")
+@RequestMapping(value = "/categories")
 public class CategoryController {
 
 	@Autowired
@@ -39,13 +39,17 @@ public class CategoryController {
 	public ResponseEntity<Category[]> getCategories() {
 		
 		Iterable<Category> allCategories = repo.findAll();
-		return new ResponseEntity(allCategories, HttpStatus.OK);
+		
+		Category[] testCats = new Category[1];
+		testCats[0] = new Category("TESTCATEGORY");
+		System.out.println("Get Categories called++++++++++++++++++++++++");
+		return new ResponseEntity<Category[]>(testCats, HttpStatus.OK);
 	
 	}
 
 	@GetMapping("{id}")
 	public ResponseEntity<Category> getCategory(@PathVariable final long id) {
-		
+		System.out.println("Get Categoriy by id called++++++++++++++++++++++++");
 		Category category = repo.findById(id).orElseThrow(() -> new EntityNotFoundException());
 		return new ResponseEntity<>(category, HttpStatus.OK);
 	}

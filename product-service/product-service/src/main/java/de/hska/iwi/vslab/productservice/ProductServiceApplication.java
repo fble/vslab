@@ -10,7 +10,7 @@ import org.springframework.cloud.netflix.ribbon.RibbonClient;
 @SpringBootApplication
 @EnableDiscoveryClient
 //@EnableCircuitBreaker
-//@RibbonClient("products")
+@RibbonClient("products")
 public class ProductServiceApplication {
 
 	public static void main(String[] args) {

@@ -1,4 +1,4 @@
-version: '2.0'
+version: '3.7'
 
 services:
 
@@ -14,11 +14,6 @@ services:
       - MYSQL_ONETIME_PASSWORD=true
     volumes:
       - ./data/:/var/lib/mysql
-    networks:
-      local_net:
-        aliases:
-          - db-service
-
 
   eureka:
     image: eureka
@@ -27,10 +22,6 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "8761:8761"
-    networks:
-      local_net:
-        aliases:
-          - eureka
     
   category-service:
     image: category-service
@@ -48,12 +39,6 @@ services:
       - SPRING_DATASOURCE_PASSWORD=dbpass
       - JAVA_OPTS=
         -DEUREKA_SERVER=http://eureka:8761/eureka
-    networks:
-      local_net:
-        aliases:
-          - category-service
-    expose:
-      - "8088"
     
   content-mgmt:
     image: content-mgmt
@@ -66,13 +51,7 @@ services:
       dockerfile: ./Dockerfile
     expose:
       - "8089"
-    networks:
-      local_net:
-        aliases:
-          - content-mgmt
-
-    
-    
+ 
   products:
     image: products
     ports:
@@ -87,12 +66,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/eshop?useSSL=false&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=dbuser
       - SPRING_DATASOURCE_PASSWORD=dbpass
-    networks:
-      local_net:
-        aliases:
-          - products
     
-
   users:
     image: users
     ports:
@@ -107,26 +81,13 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/eshop?useSSL=false&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=dbuser
       - SPRING_DATASOURCE_PASSWORD=dbpass
-    networks:
-      local_net:
-        aliases:
-          - users
-
-
+      
   zuul:
     image: zuul
     build:
       context: ./zuul-server/zuul-server
       dockerfile: ./Dockerfile
     ports:
-      - "8086:8062"
+      - "8086:8088"
     depends_on:
       - eureka
-    networks:
-      local_net:
-        aliases:
-          - zuul
-
-networks: 
-  local_net:
-    driver: bridge

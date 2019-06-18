@@ -1,0 +1,4 @@
+docker rm $(docker ps -a -q)
+docker stop $(docker ps -a -q)
+docker logs -t -f vslab_category-service_1
+docker ps
