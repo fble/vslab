@@ -8,7 +8,7 @@ import org.springframework.cloud.netflix.ribbon.RibbonClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@RibbonClient("user-service")
+//@RibbonClient("user-service")
 public class UserServiceApplication {
 
 	public static void main(String[] args) {

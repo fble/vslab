@@ -1,4 +1,9 @@
 package de.hska.iwi.vslab.contentmanagementservice;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.ws.rs.core.Response;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+
 import de.hska.iwi.vslab.contentmanagementservice.clients.CategoryClient;
 import de.hska.iwi.vslab.contentmanagementservice.clients.ProductClient;
 
@@ -16,8 +24,11 @@ import de.hska.iwi.vslab.contentmanagementservice.clients.ProductClient;
 @RequestMapping(value="/categories/")
 public class CategoryController {
 
+	private final Map<Integer, Category> catCache = new LinkedHashMap<Integer, Category>();
 	private CategoryClient categoryClient = new CategoryClient(); 
 	private ProductClient productClient = new ProductClient();
+	
+	
 	@PostMapping
 	public Response createCategory(@RequestBody Category c ) {
 		//TODO add new category
@@ -31,18 +42,29 @@ public class CategoryController {
 	}
 	
 	@GetMapping
+	@HystrixCommand(fallbackMethod = "getAllCategoriesCache", commandProperties = {
+			@HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "2") })
 	public Response getCategory() {
+		
 		// Login user
 		// TODO return category
+		Category[] tempCats = categoryClient.getCategories();
+		if(tempCats != null)
+			for(Category c : tempCats)
+				catCache.putIfAbsent(c.getId(), c);
+
 		return Response.ok(categoryClient.getCategories()).build();
 	}
 	
 	@GetMapping("{id}")
+	@HystrixCommand(fallbackMethod = "getCategoryCache", commandProperties = {
+			@HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "2") })
 	public Response getCategoryById(@PathVariable int id) {
 		// Logout user
 		
 		Category c = categoryClient.getCategoryById(id);
 		if(c != null) {
+			catCache.putIfAbsent(id, c);
 			return Response.ok(c).build();
 		}else {
 			return Response.noContent().build();
@@ -71,6 +93,12 @@ public class CategoryController {
 	}
 	
 	
+	public Response getCategoriesCache(int catId) {
+		return Response.ok(catCache.get(catId)).build();
+		}
 
 	
+	public Response getAllCategoriesCache() {
+		return Response.ok(catCache.values()).build();
+	}
 }

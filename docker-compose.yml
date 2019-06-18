@@ -1,7 +1,6 @@
-version: '3.7'
+version: '2.0'
 
 services:
-
 
   db-service:
     image: mysql:latest
@@ -15,23 +14,28 @@ services:
       - MYSQL_ONETIME_PASSWORD=true
     volumes:
       - ./data/:/var/lib/mysql
+    networks:
+      local_net:
+        aliases:
+          - db-service
 
 
-  api:
-    image: api
-    ports:
-      - 8081:8088
-    depends_on:
-      - eureka
+  eureka:
+    image: eureka
     build:
-      context: ./api
+      context: ./eureka-server/eureka-server
       dockerfile: ./Dockerfile
-    
-    
-  categories:
-    image: categories
     ports:
-      - 8082:8088
+      - "8761:8761"
+    networks:
+      local_net:
+        aliases:
+          - eureka
+    
+  category-service:
+    image: category-service
+    ports:
+      - "8088:8088"
     build:
       context: ./category-service/category-service
       dockerfile: ./Dockerfile
@@ -42,23 +46,37 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/eshop?useSSL=false&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=dbuser
       - SPRING_DATASOURCE_PASSWORD=dbpass
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka:8761/eureka
+    networks:
+      local_net:
+        aliases:
+          - category-service
+    expose:
+      - "8088"
     
-    
-  cms:
-    image: cms
+  content-mgmt:
+    image: content-mgmt
     ports:
-      - 8083:8088
+      - "8089:8089"
     depends_on:
       - eureka
     build:
       context: ./content-management-service/content-management-service
       dockerfile: ./Dockerfile
+    expose:
+      - "8089"
+    networks:
+      local_net:
+        aliases:
+          - content-mgmt
+
     
     
   products:
     image: products
     ports:
-      - 8084:8088
+      - "8084:8088"
     build:
       context: ./product-service/product-service
       dockerfile: ./Dockerfile
@@ -69,12 +87,16 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/eshop?useSSL=false&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=dbuser
       - SPRING_DATASOURCE_PASSWORD=dbpass
+    networks:
+      local_net:
+        aliases:
+          - products
     
 
   users:
     image: users
     ports:
-      - 8085:8088
+      - "8085:8088"
     build:
       context: ./user-service/user-service
       dockerfile: ./Dockerfile
@@ -85,15 +107,10 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/eshop?useSSL=false&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=dbuser
       - SPRING_DATASOURCE_PASSWORD=dbpass
-    
-   
-  eureka:
-    image: eureka
-    build:
-      context: ./eureka-server/eureka-server
-      dockerfile: ./Dockerfile
-    ports:
-      - 8761:8761
+    networks:
+      local_net:
+        aliases:
+          - users
 
 
   zuul:
@@ -102,6 +119,14 @@ services:
       context: ./zuul-server/zuul-server
       dockerfile: ./Dockerfile
     ports:
-      - 8086:8088
+      - "8086:8062"
     depends_on:
       - eureka
+    networks:
+      local_net:
+        aliases:
+          - zuul
+
+networks: 
+  local_net:
+    driver: bridge

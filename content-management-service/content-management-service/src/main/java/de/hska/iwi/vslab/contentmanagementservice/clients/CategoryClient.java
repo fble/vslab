@@ -6,7 +6,7 @@ import org.springframework.web.client.RestTemplate;
 
 public class CategoryClient {
 
-	private String categoryUri = "http://categories/categories/";
+	private String categoryUri = "http://category-service/categories/";
 
 
 
