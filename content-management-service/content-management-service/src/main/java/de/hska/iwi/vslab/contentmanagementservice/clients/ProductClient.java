@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate;
 
 public class ProductClient {
 
-	private String productUri = "";
+	private String productUri = "http://products/products/";
 
 	public boolean createProduct(Product p) {
 		RestTemplate rt = new RestTemplate();

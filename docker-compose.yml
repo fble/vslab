@@ -103,3 +103,5 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 8086:8088
+    depends_on:
+      - eureka
