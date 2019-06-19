@@ -1,9 +1,11 @@
 FROM java:8-jdk-alpine
 
-COPY ./target/product-service-0.0.1-SNAPSHOT.jar /usr/app/
+VOLUME /tmp
 
-WORKDIR /usr/app
+EXPOSE 8084
 
-RUN sh -c 'touch product-service-0.0.1-SNAPSHOT.jar'
+ARG JAR_FILE=target/product-service-0.0.1-SNAPSHOT.jar
 
-ENTRYPOINT ["java","-jar","product-service-0.0.1-SNAPSHOT.jar"]  
+ADD ${JAR_FILE} product-service.jar
+
+ENTRYPOINT ["java","-jar","/product-service.jar"]  

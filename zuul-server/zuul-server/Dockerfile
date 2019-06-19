@@ -1,9 +1,11 @@
 FROM java:8-jdk-alpine
 
-COPY ./target/zuul-server-0.0.1-SNAPSHOT.jar /usr/app/
+VOLUME /tmp
 
-WORKDIR /usr/app
+EXPOSE 8086
 
-RUN sh -c 'touch zuul-server-0.0.1-SNAPSHOT.jar'
+ARG JAR_FILE=target/zuul-server-0.0.1-SNAPSHOT.jar
 
-ENTRYPOINT ["java","-jar","zuul-server-0.0.1-SNAPSHOT.jar"]  
+ADD ${JAR_FILE} zuul-service.jar
+
+ENTRYPOINT ["java","-jar","/zuul-service.jar"]  
